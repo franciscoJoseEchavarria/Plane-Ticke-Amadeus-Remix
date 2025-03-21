@@ -5,9 +5,10 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import type { LinksFunction } from "@remix-run/node";
+import type { LinksFunction, MetaFunction } from "@remix-run/node";
 
 import "./tailwind.css";
+import Navbar from "./components/Navbar";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -22,6 +23,13 @@ export const links: LinksFunction = () => [
   },
 ];
 
+export const meta: MetaFunction = () => {
+  return [
+    { title: "New Remix App" },
+    { name: "description", content: "Welcome to Remix!" },
+  ];
+};
+
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -32,6 +40,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
+        <Navbar />
         {children}
         <ScrollRestoration />
         <Scripts />
