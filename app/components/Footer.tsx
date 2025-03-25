@@ -12,7 +12,7 @@ export default function Footer() {
             href="https://www.facebook.com/AmadeusITGroup/"
             aria-label="Facebook"
           >
-            <i className="ri-facebook-circle-fill text-2xl"></i>
+            <i className="ri-facebook-box-line text-2xl "></i>
           </a>
           <a
             href="https://www.instagram.com/amadeusitgroup"
@@ -21,10 +21,22 @@ export default function Footer() {
             <i className="ri-instagram-line text-2xl"></i>
           </a>
           <a
+            href="https://www.youtube.com/user/AmadeusITGroup"
+            aria-label="YouTube"
+          >
+            <i className="ri-youtube-line text-2xl"></i>
+          </a>
+          <a
+            href="https://twitter.com/AmadeusITGroup"
+            aria-label="twitter"
+          >
+            <i className="ri-twitter-x-fill text-2xl"></i>
+          </a>
+          <a
             href="https://www.linkedin.com/company/amadeus"
             aria-label="LinkedIn"
           >
-            <i className="ri-linkedin-box-fill text-2xl"></i>
+            <i className="ri-linkedin-box-line text-2xl"></i>
           </a>
         </div>
       </div>
