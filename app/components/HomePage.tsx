@@ -1,0 +1,37 @@
+import Button from "./Button";
+
+export default function HomePage() {
+  return (
+    <div className="flex justify-center">
+      <div className="absolute right-10 top-1/4 bg-white p-6 rounded-lg shadow-lg max-w-md">
+        <p className="text-blue-600 text-lg font-semibold">
+          🌍 En el corazón de los viajes
+        </p>
+        <h2 className="text-2xl font-bold text-gray-900 mt-2">
+          Descubre tu próximo destino con Amadeus
+        </h2>
+        <p className="text-gray-700 mt-4">
+          La tecnología de Amadeus transforma la industria de los viajes y el
+          turismo en todo el mundo, ayudándote a encontrar el destino perfecto
+          para tus vacaciones.
+        </p>
+        <p className="text-gray-700 mt-4">
+          ✈️ <strong>¿No sabes a dónde ir?</strong>
+          <br />
+          No te preocupes, nosotros te guiamos para que disfrutes una
+          experiencia inolvidable.
+        </p>
+        <p className="text-gray-700 mt-4">
+          Tu próxima aventura está a un clic de distancia.
+        </p>
+        <br />
+        <Button
+          to="/login"
+          className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
+        >
+          Vamos a viajar →
+        </Button>
+      </div>
+    </div>
+  );
+}
