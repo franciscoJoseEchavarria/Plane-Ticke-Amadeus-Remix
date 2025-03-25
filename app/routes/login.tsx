@@ -1,4 +1,4 @@
-import { ActionFunction, json, redirect } from "@remix-run/node";
+import { ActionFunction, redirect } from "@remix-run/node";
 import { User } from "~/interfaces/userInterface";
 import UserService from "~/services/userService";
 
@@ -11,11 +11,8 @@ export const action: ActionFunction = async ({ request }) => {
         Email: formData.get('email') as string
     }
 
-/*     if (formData.get('terms') === null) {
-        return json({ error: 'Debes aceptar los términos y condiciones' }, { status: 400 });
-    } */
-
     const user = await UserService.getUserByEmail(newUser.Email);
+    console.log(user);    
     
     if (user === null) {
         await UserService.addUser(newUser);
@@ -27,7 +24,7 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function Login() {
     return (
-        <div className="relative h-[90vh] bg-blue-950 bg-contain bg-center bg-no-repeat" style={{ backgroundImage: "url('trip.jpg')" }}>
+        <div className="relative h-[90vh] bg-white bg-contain bg-center bg-no-repeat" style={{ backgroundImage: "url('trip.jpg')" }}>
             {/* Overlay */}
             <div className="absolute inset-0"></div>
 

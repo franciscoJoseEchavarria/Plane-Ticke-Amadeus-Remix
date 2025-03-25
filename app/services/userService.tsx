@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { User } from '~/interfaces/userInterface';
 
-const API_URL = 'http://localhost:5177/api/user'; // Replace with your actual API endpoint
+const API_URL = 'http://localhost:5177/api/user';
 
 const getUsers = async () => {
     try {
