@@ -1,7 +1,10 @@
 import { ActionFunction, redirect } from "@remix-run/node";
+// Import interfaces
 import { User } from "~/interfaces/userInterface";
+// Import services
 import UserService from "~/services/userService";
-
+import { commitSession, getSession } from "~/services/sesionService";
+// Import components
 import LoginForm from '../components/LoginForm';
 
 export const action: ActionFunction = async ({ request }) => {
@@ -11,15 +14,24 @@ export const action: ActionFunction = async ({ request }) => {
         Email: formData.get('email') as string
     }
 
-    const user = await UserService.getUserByEmail(newUser.Email);
-    console.log(user);    
+    try {
+        const user = await UserService.getUserByEmail(newUser.Email);
+        
+        if (user === null) {
+            await UserService.addUser(newUser);
+        }
+        const session = await getSession(request.headers.get('Cookie'));
+        session.set('user', newUser);
     
-    if (user === null) {
-        await UserService.addUser(newUser);
-        return redirect('/question');
-    }
-
-    return redirect('/question');
+        return redirect('/question', {
+            headers: {
+                'Set-Cookie': await commitSession(session),
+            },
+        });
+    } catch (error) {
+        console.error("Error en el loader:", error);
+        return redirect("/login?error=true");
+    }    
 }
 
 export default function Login() {
