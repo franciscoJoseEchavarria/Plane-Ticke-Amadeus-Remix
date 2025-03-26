@@ -49,11 +49,14 @@ export default function Result() {
                                 />
                             </div>
                             <div className="p-6">
-                                <h2 className="text-2xl font-bold text-gray-800 mb-2">{city.cityName}</h2>
+                                <h2 className="text-2xl font-bold text-gray-800">{city.cityName}</h2>
                                 <p className="text-sm text-gray-600 mb-4">
                                     {city.country}
                                 </p>
-                                <p className="text-gray-700 mb-4">
+                                <p className="text-gray-700">
+                                    Imperdible:
+                                </p>
+                                <p className="text-gray-800 text-lg mb-4">
                                     {city.unmissablePlace}
                                 </p>
                                 <a 
