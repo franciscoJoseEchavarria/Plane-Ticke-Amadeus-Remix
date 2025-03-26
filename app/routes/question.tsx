@@ -1,5 +1,5 @@
-import { LoaderFunction, json } from '@remix-run/node';
-import { Link, useLoaderData } from '@remix-run/react';
+import { LoaderFunction, ActionFunction, json, redirect } from '@remix-run/node';
+import { useLoaderData, useSubmit, } from '@remix-run/react';
 import { useState } from 'react';
 // Import components
 import QuestionCard from '../components/QuestionCard';
@@ -7,10 +7,11 @@ import Sidebar from '../components/Sidebar';
 // Import services
 import questionService from '~/services/questionService';
 import questionOptionService from '~/services/questionOptionService';
+import destinationService from '~/services/destinationService';
 // Import interfaces
 import type { Question } from '~/interfaces/questionInterface';
 import { QuestionOption } from '../interfaces/questionOptionInterface';
-import { getSession } from '~/services/sesionService';
+import { commitSession, getSession } from '~/services/sesionService';
 import { User } from '~/interfaces/userInterface';
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -36,6 +37,30 @@ export const loader: LoaderFunction = async ({ request }) => {
     }
 };
 
+export const action: ActionFunction = async ({ request }) => {
+    const formData = await request.formData();
+    const answers = JSON.parse(formData.get('answers') as string);
+
+    try {
+        const answerTexts = answers.map((answer: { text: string }) => answer.text);
+        console.log("Respuestas:", answerTexts);
+
+        const cities = await destinationService.getCityByHash(answerTexts);
+
+        const session = await getSession(request.headers.get('Cookie'));
+        session.set('recommendedCities', JSON.stringify(cities));
+
+        return redirect('/result', {
+            headers: {
+                'Set-Cookie': await commitSession(session)
+            }
+        });
+    } catch (error) {
+        console.error("Error al procesar respuestas:", error);
+        return json({ error: 'No pudimos procesar tus respuestas. Por favor, intenta de nuevo.' }, { status: 500 });
+    }
+}
+
 export default function Question() {
 
     const { question, questionOption, user } = useLoaderData<{ 
@@ -43,6 +68,8 @@ export default function Question() {
         questionOption: QuestionOption[],
         user: User
     }>();
+
+    const submit = useSubmit();
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [selectedAnswer, setSelectedAnswer] = useState<Array<{ 
@@ -88,6 +115,13 @@ export default function Question() {
         }
     }
 
+    const handleSubmitAnswers = () => {
+        submit(
+            { answers: JSON.stringify(selectedAnswer) },
+            { method: 'post', action: '/question' }
+        );
+    }
+
     return (
         <div className='bg-blue-200 min-h-screen flex'>
             <div className='flex-grow'>
@@ -103,12 +137,12 @@ export default function Question() {
                     <div className="text-center mt-10 flex flex-col items-center">
                         <h2 className="text-2xl font-bold text-blue-700 mb-4">¡Has completado todas las preguntas!</h2>
                         <p className="text-gray-700 mb-6">Revisa tus preferencias y haz click en <b>Ver mis resultados</b></p>
-                        <Link 
-                            to={`/result`} 
+                        <button 
+                            onClick={handleSubmitAnswers} 
                             className="w-80 block text-center py-3 rounded-lg text-white font-medium transition-colors bg-blue-500 hover:bg-blue-600 cursor-pointer"
                         >
                             Ver mis resultados
-                        </Link>
+                        </button>
                     </div>
                 ) : (
                     <>

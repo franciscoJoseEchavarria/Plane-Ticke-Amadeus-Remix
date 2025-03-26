@@ -21,7 +21,7 @@ export default function Sidebar({ userName, selectedAnswers, onReset }: SidebarP
     }
 
     return (
-        <div className='h-screen bg-white shadow-lg transition-all duration-300 ease-in-out w-80'>
+        <div className='h-screen bg-white w-72'>
             <div className="px-6 py-4 h-full overflow-y-auto flex flex-col">
                 <h2 className="text-xl font-bold text-gray-800 mb-4">Hola, {userName}</h2>
                 <p className="text-gray-600 mb-4">Estas son tus preferencias:</p>
@@ -30,7 +30,7 @@ export default function Sidebar({ userName, selectedAnswers, onReset }: SidebarP
                 <div className="space-y-3 w-4/5 mx-auto flex-grow"> {/* 80% del ancho del sidebar */}
                 {selectedAnswers.length > 0 ? (
                     selectedAnswers.map((answer) => (
-                        <div key={`${answer.questionId}-${answer.optionId}`} className="relative w-full h-12 rounded-lg overflow-hidden">
+                        <div key={`${answer.questionId}-${answer.optionId}`} className="relative w-full h-12 rounded-lg overflow-hidden hover:scale-105 hover:shadow-xl transition-transform duration-300 ease-in-out z-0 hover:z-10">
                             <img 
                                 src={answer.image} 
                                 alt={answer.text} 
