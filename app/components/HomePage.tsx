@@ -2,7 +2,7 @@ import Button from "./Button";
 
 export default function HomePage() {
   return (
-      <div className="absolute top-1/2 right-10 transform -translate-y-1/2 bg-white p-6 rounded-s shadow-lg max-w-md">
+      <div className="absolute top-1/2 right-10 transform -translate-y-1/2 bg-white p-6 rounded-r-sm shadow-lg max-w-md">
         <p className="text-blue-600 text-lg font-semibold">
           🌍 En el corazón de los viajes
         </p>
