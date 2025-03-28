@@ -7,7 +7,6 @@ export const loader: LoaderFunction = async ({ request }) => {
     const token = session.get('adminToken');
     const expiration = session.get('tokenExpiration');
 
-    // Redirect to login if no token or expired
     if (!token || !expiration || new Date(expiration) < new Date()) {
         return redirect('/AdminLogin');
     }
