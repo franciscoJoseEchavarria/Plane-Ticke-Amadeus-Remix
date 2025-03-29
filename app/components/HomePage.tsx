@@ -1,6 +1,11 @@
+import { User } from "~/interfaces/userInterface";
 import Button from "./Button";
 
-export default function HomePage() {
+interface HomePageProps {
+    user: User | null;
+}
+
+export default function HomePage({ user }: HomePageProps) {
   return (
       <div className="absolute top-1/2 right-10 transform -translate-y-1/2 bg-white p-6 rounded-r-sm shadow-lg max-w-md">
         <p className="text-blue-600 text-lg font-semibold">
@@ -25,10 +30,10 @@ export default function HomePage() {
         </p>
         <br />
         <Button
-          to="/login"
+          to={user ? "/question" : "/login"}
           className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
         >
-          Vamos a viajar →
+          {user ? "Comenzar cuestionario →" : "Vamos a viajar →"}
         </Button>
       </div>
   );
