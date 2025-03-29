@@ -4,12 +4,16 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from "@remix-run/react";
 import type { LinksFunction, MetaFunction } from "@remix-run/node";
+import { getSession } from "~/services/sesionService";
 
 import "./tailwind.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import { json, LoaderFunction } from '@remix-run/node';
+import { User } from "./interfaces/userInterface";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -32,7 +36,16 @@ export const meta: MetaFunction = () => {
   ];
 };
 
+export const loader: LoaderFunction = async ({ request }) => {
+  const session = await getSession(request.headers.get("Cookie"));
+  const user = session.get("user") || null;
+  
+  return json({ user });
+};
+
 export function Layout({ children }: { children: React.ReactNode }) {
+  const { user } = useLoaderData<{ user: User | null }>();
+  
   return (
     <html lang="en">
       <head>
@@ -42,7 +55,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <Navbar />
+        <Navbar user={user}/>
         <main className="flex-grow">{children}</main>
         <Footer /> 
         <ScrollRestoration />
