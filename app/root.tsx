@@ -4,10 +4,16 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from "@remix-run/react";
-import type { LinksFunction } from "@remix-run/node";
+import type { LinksFunction, MetaFunction } from "@remix-run/node";
+import { getSession } from "~/services/sesionService";
 
 import "./tailwind.css";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import { json, LoaderFunction } from '@remix-run/node';
+import { User } from "./interfaces/userInterface";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -20,9 +26,26 @@ export const links: LinksFunction = () => [
     rel: "stylesheet",
     href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
   },
+  { rel: "stylesheet", href:"https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" },
 ];
 
+export const meta: MetaFunction = () => {
+  return [
+    { title: "New Remix App" },
+    { name: "description", content: "Welcome to Remix!" },
+  ];
+};
+
+export const loader: LoaderFunction = async ({ request }) => {
+  const session = await getSession(request.headers.get("Cookie"));
+  const user = session.get("user") || null;
+  
+  return json({ user });
+};
+
 export function Layout({ children }: { children: React.ReactNode }) {
+  const { user } = useLoaderData<{ user: User | null }>();
+  
   return (
     <html lang="en">
       <head>
@@ -32,7 +55,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <Navbar user={user}/>
+        <main className="flex-grow">{children}</main>
+        <Footer /> 
         <ScrollRestoration />
         <Scripts />
       </body>
