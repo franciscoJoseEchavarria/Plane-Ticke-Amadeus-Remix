@@ -1,40 +1,76 @@
-# Welcome to Remix!
+# Go4It - Amadeus
 
-- 📖 [Remix docs](https://remix.run/docs)
+Un sistema web que permite a los usuarios recibir recomendaciones turísticas personalizadas en base a sus características demográficas y gustos personales.
 
-## Development
+## Características
 
-Run the dev server:
+- **Encuesta interactiva:** Los usuarios responden preguntas sobre sus preferencias.
+- **Recomendaciones personalizadas:** Se sugieren dos destinos, uno en América y otro en Europa.
+- **Formulario de acceso:** Se requiere ingresar nombre, correo y aceptar los términos y condiciones.
 
-```shellscript
-npm run dev
+## 📝 Preguntas de la Encuesta
+
+- ¿Qué tipo de entorno prefieres para tus vacaciones?
+- ¿Qué clima prefieres durante tus vacaciones?
+- ¿Qué tipo de actividades prefieres hacer durante tus vacaciones?
+- ¿Qué tipo de alojamiento prefieres?
+- ¿Cuánto tiempo planeas quedarte de vacaciones?
+- ¿Cuál es tu rango de edad?
+
+## 📚 Tecnologías Utilizadas
+
+- RemixJS (Framework de React)
+- TypeScript
+- Git y GitHub
+- Tailwind CSS para estilos
+
+## 🛠️ Instalación y Ejecución
+
+1. Clonar el repositorio del frontend:
+
+   ```bash
+   git clone https://github.com/cavalenciad/go4it-amadeus.git
+   cd go4it-amadeus
+   ```
+
+2. Instalar dependencias:
+
+   ```bash
+   npm install
+   ```
+
+3. Ejecutar el servidor de desarrollo:
+
+   ```bash
+   npm run dev
+   ```
+
+4. Para su funcionamiento, se debe tener instalado y corriendo el backend:
+
+   ```bash
+   git clone https://github.com/cavalenciad/go4it_amadeus.git
+   cd go4it_amadeus
+   dotnet restore
+   dotnet run
+   ```
+
+_(La base de datos está alojada en Amazon Web Services.)_
+
+## 🌐 Estructura del Proyecto
+
+```
+/app 
+  ├── components/   # Componentes reutilizables
+  ├── interfaces/   # Interfaces para los datos 
+  ├── routes/       # Vistas principales 
+  ├── services/     # Llamadas a la API
+  ├── root.tsx      # Punto de inicio de la app
+  ├── tailwind.css  # Configuración de Tailwind para estilos
+/public
+  ├── citiesImg/    # Imágenes de ciudades
+  ├── optionsImg/   # Imágenes opciones de respuesta
 ```
 
-## Deployment
+## 🔗 Enlaces Importantes
 
-First, build your app for production:
-
-```sh
-npm run build
-```
-
-Then run the app in production mode:
-
-```sh
-npm start
-```
-
-Now you'll need to pick a host to deploy it to.
-
-### DIY
-
-If you're familiar with deploying Node applications, the built-in Remix app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-- `build/server`
-- `build/client`
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever css framework you prefer. See the [Vite docs on css](https://vitejs.dev/guide/features.html#css) for more information.
+_(No hay demo
