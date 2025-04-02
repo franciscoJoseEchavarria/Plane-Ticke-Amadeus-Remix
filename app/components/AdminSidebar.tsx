@@ -1,5 +1,11 @@
-import React from "react";
-import { Home, Users, FileText, Calendar, BarChart, Building } from "lucide-react"; // Usa Material UI si prefieres
+import { Link } from "@remix-run/react";
+import { 
+    HomeIcon, 
+    UsersIcon, 
+    FileTextIcon, 
+    BarChartIcon, 
+    BuildingIcon 
+} from 'lucide-react';
 
 interface NavItemProps {
   to: string;
@@ -8,10 +14,13 @@ interface NavItemProps {
 }
 
 const NavItem: React.FC<NavItemProps> = ({ to, icon, label }) => (
-  <a href={to} className="flex items-center space-x-3 p-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded-md">
+  <Link 
+    to={to} 
+    className="flex items-center space-x-3 p-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded-md"
+  >
     {icon}
     <span>{label}</span>
-  </a>
+  </Link>
 );
 
 const AdminSidebar: React.FC = () => {
