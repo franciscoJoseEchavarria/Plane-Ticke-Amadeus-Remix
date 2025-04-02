@@ -28,12 +28,12 @@ const AdminSidebar: React.FC = () => {
     <aside className="w-64 h-screen bg-blue-950 text-white p-4">
       <h2 className="text-xl font-bold mb-6">Admin Panel</h2>
       <nav className="space-y-2">
-        <NavItem to="/dashboard" icon={<HomeIcon size={20} />} label="Dashboard" />
-        <NavItem to="/users" icon={<UsersIcon size={20} />} label="Users" />
-        <NavItem to="/questionsAdmin" icon={<FileTextIcon size={20} />} label="Questions" />
-        <NavItem to="/questionsoption" icon={<FileTextIcon size={20} />} label="Questions Options" />
-        <NavItem to="/cities" icon={<BuildingIcon size={20} />} label="Cities" />
-        <NavItem to="/reports" icon={<BarChartIcon size={20} />} label="Reports" />
+        <NavItem to="/dashboard" icon={<Home size={20} />} label="Dashboard" />
+        <NavItem to="/reportUser" icon={<Users size={20} />} label="Users" />
+        <NavItem to="/questions" icon={<FileText size={20} />} label="Questions" />
+        <NavItem to="/questionsoption" icon={<FileText size={20} />} label="Questions Options" />
+        <NavItem to="/cities" icon={<Building size={20} />} label="Cities" />
+        <NavItem to="/reports" icon={<BarChart size={20} />} label="Reports" />
       </nav>
     </aside>
   );
