@@ -1,16 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace app.interfaces
-{
-    public interface IPagedResult
-    {
+export interface IPagedResult<T> {
     items: T[];
     currentPage: number;
     pageSize: number;
     totalItems: number;
     totalPages: number;
-    }
 }
