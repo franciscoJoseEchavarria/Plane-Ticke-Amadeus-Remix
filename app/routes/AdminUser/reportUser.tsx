@@ -6,7 +6,7 @@ import { IPagedResult } from '~/interfaces/IPagedResult';
 import { User } from '~/interfaces/userInterface';
 import { Pagination } from '~/components/Pagination';
 import { AdminHeader } from '~/components/Admin/AdminHeader';
-
+import { requireAdminAuth } from '~/services/authService';
 import AdminSidebar from '~/components/AdminSidebar';
 
 // Definir interfaces
@@ -19,13 +19,8 @@ interface LoaderData {
 // Loader para cargar datos
 export const loader: LoaderFunction = async ({ request }) => {
   // Validar sesión y autenticación
-  const session = await getSession(request.headers.get('Cookie'));
-  const token = session.get('adminToken');
-  const expiration = session.get('tokenExpiration');
 
-  if (!token || !expiration || new Date(expiration) < new Date()) {
-    return redirect('/AdminLogin');
-  }
+  const {expiration,} = await requireAdminAuth(request);
 
   // Obtener parámetros de paginación
   const url = new URL(request.url);
@@ -104,8 +99,7 @@ export default function ReportUser() {
       <div className="flex-1 bg-gray-100 p-8 overflow-auto">
         <div className="container mx-auto">
                
-          <AdminHeader title="Gestión de usuarios" expiration={expiration}></AdminHeader>        
-          
+          <AdminHeader title="Gestión de usuarios" expiration={expiration}/>
           {/* Tabla de usuarios */}
           <div className="bg-white rounded-lg shadow mb-6">
             <table className="table-fixed min-w-full border-collapse border-2 border-gray-200">
@@ -124,9 +118,10 @@ export default function ReportUser() {
                     <td className="py-2 px-4 border-2 border-blue-700 text-center">{user.full_name}</td>
                     <td className="py-2 px-4 border-2 border-blue-700 text-center">{user.email}</td>
                     <td className="py-2 px-4 border-2 border-blue-700 text-center">
+                      {/* Acciones */}
                       <div className="flex justify-center space-x-2">
-                        <Link 
-                          to={`/reportUser/edit/${user.id}`}
+                        <Link
+                          to={`/Admin-User/reportUserEdit?userId=${user.id}`}
                           className="bg-yellow-500 hover:bg-yellow-600 text-white py-1 px-3 rounded-md"
                         >
                           Editar
@@ -156,7 +151,7 @@ export default function ReportUser() {
             currentPage={pagedData.currentPage}
             totalPages={pagedData.totalPages}
             pageSize={pagedData.pageSize}
-            baseUrl="/reportUser"
+            baseUrl="/AdminUser/reportUser"
           />
         </div>
       </div>

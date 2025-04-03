@@ -29,7 +29,7 @@ const AdminSidebar: React.FC = () => {
       <h2 className="text-xl font-bold mb-6">Admin Panel</h2>
       <nav className="space-y-2">
         <NavItem to="/dashboard" icon={<Home size={20} />} label="Dashboard" />
-        <NavItem to="/reportUser" icon={<Users size={20} />} label="Users" />
+        <NavItem to="/AdminUser/reportUser" icon={<Users size={20} />} label="Users" />
         <NavItem to="/questions" icon={<FileText size={20} />} label="Questions" />
         <NavItem to="/questionsoption" icon={<FileText size={20} />} label="Questions Options" />
         <NavItem to="/cities" icon={<Building size={20} />} label="Cities" />

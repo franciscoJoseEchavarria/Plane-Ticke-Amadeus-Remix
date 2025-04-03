@@ -44,7 +44,8 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const { user } = useLoaderData<{ user: User | null }>();
+  const  data  = useLoaderData<{ user: User | null }>();
+  const user = data?.user || null;  // Usando el operador ?. para acceso seguro
   
   return (
     <html lang="en">
