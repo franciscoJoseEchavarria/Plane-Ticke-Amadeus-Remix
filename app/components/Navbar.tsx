@@ -34,7 +34,7 @@ export default function Navbar({ user }: NavbarProps) {
                 {/* Navigation Links */}
                 <ul className="flex space-x-16 text-gray-700 font-medium ml-12">
                     <li><Link to="/" className="hover:text-blue-500">Inicio</Link></li>
-                    <li><Link to="/AdminUser/ReportUser" className="hover:text-blue-500">Reporte</Link></li>
+                    <li><Link to="/reportUser" className="hover:text-blue-500">Reporte</Link></li>
                     <li><a href="https://amadeus.com/es" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500">Amadeus</a></li>
                 </ul>
             </div>            

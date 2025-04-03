@@ -5,7 +5,7 @@ import userService from '~/services/userService';
 import { IPagedResult } from '~/interfaces/IPagedResult';
 import { User } from '~/interfaces/userInterface';
 import { Pagination } from '~/components/Pagination';
-import { AdminHeader } from '~/components/Admin/AdminHeader';
+import { AdminHeader } from '~/components/AdminHeader';
 import { requireAdminAuth } from '~/services/authService';
 import AdminSidebar from '~/components/AdminSidebar';
 
@@ -61,7 +61,6 @@ export const action: ActionFunction = async ({ request }) => {
       return json({ success: false, error: 'Error al eliminar el usuario' });
     }
   }
-  
   return json({ success: false, error: 'Acción no válida' });
 };
 
@@ -94,11 +93,9 @@ export default function ReportUser() {
       <div className="w-64 bg-gray-900 text-white">
         <AdminSidebar />
       </div>
-      
       {/* Área de contenido principal */}
       <div className="flex-1 bg-gray-100 p-8 overflow-auto">
         <div className="container mx-auto">
-               
           <AdminHeader title="Gestión de usuarios" expiration={expiration}/>
           {/* Tabla de usuarios */}
           <div className="bg-white rounded-lg shadow mb-6">
@@ -119,9 +116,9 @@ export default function ReportUser() {
                     <td className="py-2 px-4 border-2 border-blue-700 text-center">{user.email}</td>
                     <td className="py-2 px-4 border-2 border-blue-700 text-center">
                       {/* Acciones */}
-                      <div className="flex justify-center space-x-2">
+                      <div className="flex justify-center space-x-2" key={user.id}>
                         <Link
-                          to={`/Admin-User/reportUserEdit?userId=${user.id}`}
+                          to={user && user.id ? `/prueba/${user.id}` : "#"}
                           className="bg-yellow-500 hover:bg-yellow-600 text-white py-1 px-3 rounded-md"
                         >
                           Editar
@@ -145,13 +142,12 @@ export default function ReportUser() {
               </tbody>
             </table>
           </div>
-          
           {/* Paginación */}
-          <Pagination 
+          <Pagination
             currentPage={pagedData.currentPage}
             totalPages={pagedData.totalPages}
             pageSize={pagedData.pageSize}
-            baseUrl="/AdminUser/reportUser"
+            baseUrl="/reportUser"
           />
         </div>
       </div>

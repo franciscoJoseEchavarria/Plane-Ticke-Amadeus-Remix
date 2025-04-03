@@ -6,6 +6,7 @@ import { requireAdminAuth } from "~/services/authService";
 
 export const loader: LoaderFunction = async ({ request }) => {
  const {expiration} = await requireAdminAuth(request);
+ return json({ isAuthenticated: true, expiration });
 };
 
 export default function ReportAdmin() {
