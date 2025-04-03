@@ -1,12 +1,11 @@
-import { LoaderFunction, json, redirect } from "@remix-run/node";
+import { LoaderFunction, json} from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import AdminSidebar from "~/components/AdminSidebar";
-import { getSession } from "~/services/sesionService";
 import { requireAdminAuth } from "~/services/authService";
 
 export const loader: LoaderFunction = async ({ request }) => {
- const {expiration} = await requireAdminAuth(request);
- return json({ isAuthenticated: true, expiration });
+  const {expiration} = await requireAdminAuth(request);
+  return json({ isAuthenticated: true, expiration });
 };
 
 export default function ReportAdmin() {
@@ -29,7 +28,6 @@ export default function ReportAdmin() {
           <p className="text-gray-600 mb-4">
             Sesión válida hasta: {new Date(expiration).toLocaleString()}
           </p>
-          {/* Aquí puedes agregar los reportes */}
         </div>
       </div>
     </div>

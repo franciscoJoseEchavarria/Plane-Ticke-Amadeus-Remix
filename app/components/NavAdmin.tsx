@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link, Outlet, useLocation, useLoaderData } from '@remix-run/react';
 import type { LoaderFunction } from '@remix-run/node';
 import { json, redirect } from '@remix-run/node';
