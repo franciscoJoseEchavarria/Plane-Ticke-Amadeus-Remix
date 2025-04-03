@@ -25,7 +25,7 @@ export const action: ActionFunction = async ({ request }) => {
     session.set('tokenExpiration', response.expiration);
 
     // Redirect to ReportAdmin after successful login
-    return redirect('/ReportAdmin', {
+    return redirect('/reportAdmin', {
       headers: {
         'Set-Cookie': await commitSession(session)
       }

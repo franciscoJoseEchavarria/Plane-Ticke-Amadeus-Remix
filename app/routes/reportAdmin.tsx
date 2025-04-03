@@ -2,20 +2,11 @@ import { LoaderFunction, json, redirect } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import AdminSidebar from "~/components/AdminSidebar";
 import { getSession } from "~/services/sesionService";
+import { requireAdminAuth } from "~/services/authService";
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const session = await getSession(request.headers.get("Cookie"));
-  const token = session.get("adminToken");
-  const expiration = session.get("tokenExpiration");
-
-  if (!token || !expiration || new Date(expiration) < new Date()) {
-    return redirect("/AdminLogin");
-  }
-
-  return json({
-    isAuthenticated: true,
-    expiration,
-  });
+ const {expiration} = await requireAdminAuth(request);
+ return json({ isAuthenticated: true, expiration });
 };
 
 export default function ReportAdmin() {

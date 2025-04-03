@@ -1,10 +1,10 @@
 import { Link } from "@remix-run/react";
 import { 
-    HomeIcon, 
-    UsersIcon, 
-    FileTextIcon, 
-    BarChartIcon, 
-    BuildingIcon 
+  Home,
+  Users, 
+  FileText, 
+  BarChart, 
+  Building
 } from 'lucide-react';
 
 interface NavItemProps {
@@ -30,7 +30,7 @@ const AdminSidebar: React.FC = () => {
       <nav className="space-y-2">
         <NavItem to="/dashboard" icon={<Home size={20} />} label="Dashboard" />
         <NavItem to="/reportUser" icon={<Users size={20} />} label="Users" />
-        <NavItem to="/questions" icon={<FileText size={20} />} label="Questions" />
+        <NavItem to="/questionsAdmin" icon={<FileText size={20} />} label="Questions" />
         <NavItem to="/questionsoption" icon={<FileText size={20} />} label="Questions Options" />
         <NavItem to="/cities" icon={<Building size={20} />} label="Cities" />
         <NavItem to="/reports" icon={<BarChart size={20} />} label="Reports" />
