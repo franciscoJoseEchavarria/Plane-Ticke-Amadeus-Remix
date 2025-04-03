@@ -31,7 +31,7 @@ const AdminSidebar: React.FC = () => {
         <NavItem to="/dashboard" icon={<HomeIcon size={20} />} label="Dashboard" />
         <NavItem to="/users" icon={<UsersIcon size={20} />} label="Users" />
         <NavItem to="/questionsAdmin" icon={<FileTextIcon size={20} />} label="Questions" />
-        <NavItem to="/questionsoption" icon={<FileTextIcon size={20} />} label="Questions Options" />
+        <NavItem to="/questionOptionsAdmin" icon={<FileTextIcon size={20} />} label="Questions Options" />
         <NavItem to="/cities" icon={<BuildingIcon size={20} />} label="Cities" />
         <NavItem to="/reports" icon={<BarChartIcon size={20} />} label="Reports" />
       </nav>
