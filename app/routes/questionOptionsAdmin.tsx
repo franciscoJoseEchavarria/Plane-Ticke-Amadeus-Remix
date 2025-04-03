@@ -64,6 +64,8 @@ export const action: ActionFunction = async ({ request }) => {
         return redirect("/questionOptionsAdmin");
       }
       case "create": {
+        const data = Object.fromEntries(formData);
+        console.log("Datos enviados al backend:", data);
         const response = await fetch(API_URL, {
           method: "POST",
           headers: {
@@ -122,18 +124,26 @@ export default function QuestionOptionsAdmin() {
         <h1 className="text-2xl font-bold mb-4">
           Gestión de Opciones de Preguntas
         </h1>
-        <button
-          onClick={() => {
-            setSelectedOption(null);
-            setIsEditing(true);
-          }}
-          className="bg-blue-500 text-white px-3 py-1 rounded text-sm"
-        >
-          Nueva Opción
-        </button>
+        <div className="flex justify-end mb-4">
+          <button
+            onClick={() => {
+              setSelectedOption(null);
+              setIsEditing(true);
+            }}
+            className="bg-blue-500 text-white px-3 py-1 rounded text-sm"
+          >
+            Nueva Opción
+          </button>
+        </div>
         {isEditing ? (
-          <Form method="post" className="mt-4 bg-white p-6 rounded shadow">
-            <input type="hidden" name="id" value={selectedOption?.id || ""} />
+          <Form
+            method="post"
+            className="mt-4 bg-white p-6 rounded shadow max-w-lg mx-auto"
+          >
+            {selectedOption && (
+              <input type="hidden" name="id" value={selectedOption.id} />
+            )}
+
             <input
               type="text"
               name="questionId"
@@ -163,21 +173,23 @@ export default function QuestionOptionsAdmin() {
               defaultValue={selectedOption?.image || ""}
               className="block w-full mb-2 p-2 border rounded"
             />
-            <button
-              type="submit"
-              name="_action"
-              value={selectedOption ? "update" : "create"}
-              className="bg-blue-500 text-white px-3 py-1 m-2 rounded text-sm"
-            >
-              {selectedOption ? "Actualizar" : "Crear"}
-            </button>
-            <button
-              type="button"
-              onClick={() => setIsEditing(false)}
-              className="bg-gray-500 text-white px-3 py-1 rounded text-sm"
-            >
-              Cancelar
-            </button>
+            <div className="flex gap-2 mt-4">
+              <button
+                type="submit"
+                name="_action"
+                value={selectedOption ? "update" : "create"}
+                className="bg-blue-500 text-white px-3 py-1 rounded text-sm"
+              >
+                {selectedOption ? "Actualizar" : "Crear"}
+              </button>
+              <button
+                type="button"
+                onClick={() => setIsEditing(false)}
+                className="bg-gray-500 text-white px-3 py-1 rounded text-sm"
+              >
+                Cancelar
+              </button>
+            </div>
           </Form>
         ) : (
           <>
@@ -216,37 +228,39 @@ export default function QuestionOptionsAdmin() {
                 </div>
               ))}
             </div>
-
-            {/* Paginación */}
-            <div className="flex justify-center mt-6 gap-x-2">
-              <button
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                disabled={currentPage === 1}
-                className={`px-3 py-1 text-sm rounded-md ${
-                  currentPage === 1
-                    ? "bg-gray-300 cursor-not-allowed"
-                    : "bg-blue-500 text-white"
-                }`}
-              >
-                Anterior
-              </button>
-              <span className="self-center text-sm">
-                Página {currentPage} de {totalPages}
-              </span>
-              <button
-                onClick={() =>
-                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-                }
-                disabled={currentPage === totalPages}
-                className={`px-3 py-1 text-sm rounded-md ${
-                  currentPage === totalPages
-                    ? "bg-gray-300 cursor-not-allowed"
-                    : "bg-blue-500 text-white"
-                }`}
-              >
-                Siguiente
-              </button>
-            </div>
+            {totalPages > 1 && (
+              <div className="flex justify-center mt-6 gap-x-2">
+                <button
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.max(prev - 1, 1))
+                  }
+                  disabled={currentPage === 1}
+                  className={`px-3 py-1 text-sm rounded-md ${
+                    currentPage === 1
+                      ? "bg-gray-300 cursor-not-allowed"
+                      : "bg-blue-500 text-white"
+                  }`}
+                >
+                  Anterior
+                </button>
+                <span className="self-center text-sm">
+                  Página {currentPage} de {totalPages}
+                </span>
+                <button
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                  }
+                  disabled={currentPage === totalPages}
+                  className={`px-3 py-1 text-sm rounded-md ${
+                    currentPage === totalPages
+                      ? "bg-gray-300 cursor-not-allowed"
+                      : "bg-blue-500 text-white"
+                  }`}
+                >
+                  Siguiente
+                </button>
+              </div>
+            )}
           </>
         )}
       </div>
