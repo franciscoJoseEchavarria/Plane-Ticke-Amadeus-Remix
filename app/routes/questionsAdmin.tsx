@@ -109,7 +109,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     const submit = useSubmit();
   
     return (
-      <div className="flex h-screen">
+      <div className="flex h-screen overflow-auto">
         <div className="w-64 bg-gray-900">
           <AdminSidebar />
         </div>
