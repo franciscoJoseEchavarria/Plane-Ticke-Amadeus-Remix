@@ -5,6 +5,7 @@ import userService from '~/services/userService';
 import { IPagedResult } from '~/interfaces/IPagedResult';
 import { User } from '~/interfaces/userInterface';
 import { Pagination } from '~/components/Pagination';
+import { AdminHeader } from '~/components/Admin/AdminHeader';
 
 import AdminSidebar from '~/components/AdminSidebar';
 
@@ -102,16 +103,8 @@ export default function ReportUser() {
       {/* Área de contenido principal */}
       <div className="flex-1 bg-gray-100 p-8 overflow-auto">
         <div className="container mx-auto">
-          
-          <div className="flex justify-between items-center mb-4">
-            <h1 className="text-2xl font-bold"> Gestion de usuarios </h1>
-            <div className="bg-white rounded-lg shadow p-6">
-              <p className="text-gray-600">
-                Sesión válida hasta: {new Date(expiration).toLocaleString()}
-              </p>
-            </div>
-          </div>
-
+               
+          <AdminHeader title="Gestión de usuarios" expiration={expiration}></AdminHeader>        
           
           {/* Tabla de usuarios */}
           <div className="bg-white rounded-lg shadow mb-6">

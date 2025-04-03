@@ -1,10 +1,10 @@
 import { Link } from "@remix-run/react";
 import { 
-    HomeIcon, 
-    UsersIcon, 
-    FileTextIcon, 
-    BarChartIcon, 
-    BuildingIcon 
+  Home,
+  Users, 
+  FileText, 
+  BarChart, 
+  Building
 } from 'lucide-react';
 
 interface NavItemProps {
