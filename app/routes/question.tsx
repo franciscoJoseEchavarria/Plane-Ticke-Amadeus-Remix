@@ -106,12 +106,31 @@ export default function Question() {
             image: option.image
         };
 
-        setSelectedAnswer([...selectedAnswer, newAnswer]);
+        // Buscar si ya existe una respuesta para esta pregunta
+        const answerIndex = selectedAnswer.findIndex(
+            answer => answer.questionId === currentQuestion.id
+        );
 
-        if (currentQuestionIndex < question.length - 1) {
-            setCurrentQuestionIndex(currentQuestionIndex + 1);
+        // Si existe una respuesta, actualizarla; si no, agregar nueva
+        if (answerIndex !== -1) {
+            const updatedAnswers = [...selectedAnswer];
+            updatedAnswers[answerIndex] = newAnswer;
+            setSelectedAnswer(updatedAnswers);
+            
+            // Si estamos editando una respuesta anterior, volvemos a la última pregunta sin responder
+            const nextUnansweredIndex = selectedAnswer.length;
+            if (currentQuestionIndex < nextUnansweredIndex) {
+                setCurrentQuestionIndex(nextUnansweredIndex);
+            } else if (currentQuestionIndex < question.length - 1) {
+                setCurrentQuestionIndex(currentQuestionIndex + 1);
+            }
         } else {
-            console.log("Todas las preguntas respondidas", selectedAnswer);
+            setSelectedAnswer([...selectedAnswer, newAnswer]);
+            
+            // Avanzar a la siguiente pregunta si no es la última
+            if (currentQuestionIndex < question.length - 1) {
+                setCurrentQuestionIndex(currentQuestionIndex + 1);
+            }
         }
     }
 
@@ -121,6 +140,10 @@ export default function Question() {
             { method: 'post', action: '/question' }
         );
     }
+
+    const handleQuestionSelect = (index: number) => {
+        setCurrentQuestionIndex(index);
+    };
 
     return (
         <div className='bg-blue-200 min-h-screen flex'>
@@ -169,6 +192,7 @@ export default function Question() {
                 userName={user.Full_name} 
                 selectedAnswers={selectedAnswer} 
                 onReset={handleReset}
+                onQuestionSelect={handleQuestionSelect}
             />
         </div>
     )

@@ -1,3 +1,6 @@
+
+
+
 interface LoginResponse {
     token: string;
     expiration: string;
@@ -38,6 +41,15 @@ const loginAdmin = async (credentials: { email: string; password: string }): Pro
     }
 };
 
+
+/**
+ * Verifica si el usuario está autenticado como administrador
+ * @returns Objeto con el token y fecha de expiración si está autenticado
+ * @throws Redirección a AdminLogin si no está autenticado
+ */
+
+
+
 export default {
-    loginAdmin
+    loginAdmin,
 };

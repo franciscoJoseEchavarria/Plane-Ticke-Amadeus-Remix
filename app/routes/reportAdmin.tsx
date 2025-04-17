@@ -1,34 +1,35 @@
-import { LoaderFunction, json, redirect } from '@remix-run/node';
-import { useLoaderData } from '@remix-run/react';
-import { getSession } from '~/services/sesionService';
+import { LoaderFunction, json} from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import AdminSidebar from "~/components/AdminSidebar";
+import { requireAdminAuth } from "~/services/authService";
 
 export const loader: LoaderFunction = async ({ request }) => {
-    const session = await getSession(request.headers.get('Cookie'));
-    const token = session.get('adminToken');
-    const expiration = session.get('tokenExpiration');
-
-    if (!token || !expiration || new Date(expiration) < new Date()) {
-        return redirect('/AdminLogin');
-    }
-
-    return json({ 
-        isAuthenticated: true,
-        expiration 
-    });
+  const {expiration} = await requireAdminAuth(request);
+  return json({ isAuthenticated: true, expiration });
 };
 
 export default function ReportAdmin() {
-    const { expiration } = useLoaderData<{ isAuthenticated: boolean; expiration: string }>();
+  const { expiration } = useLoaderData<{
+    isAuthenticated: boolean;
+    expiration: string;
+  }>();
 
-    return (
-        <div className="container mx-auto px-4 py-8">
-            <h1 className="text-2xl font-bold mb-6">Panel de Administración</h1>
-            <div className="bg-white rounded-lg shadow p-6">
-                <p className="text-gray-600 mb-4">
-                    Sesión válida hasta: {new Date(expiration).toLocaleString()}
-                </p>
-                {/* Add your report content here */}
-            </div>
+  return (
+    <div className="flex h-screen">
+      {/* Sidebar fijo a la izquierda */}
+      <div className="w-64 bg-gray-900 text-white">
+        <AdminSidebar />
+      </div>
+
+      {/* Contenido a la derecha */}
+      <div className="flex-1 bg-gray-100 p-8 overflow-auto">
+        <h1 className="text-2xl font-bold mb-6">Reportes</h1>
+        <div className="bg-white rounded-lg shadow p-6">
+          <p className="text-gray-600 mb-4">
+            Sesión válida hasta: {new Date(expiration).toLocaleString()}
+          </p>
         </div>
-    );
+      </div>
+    </div>
+  );
 }
